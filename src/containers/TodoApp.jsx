@@ -11,10 +11,29 @@ const TodoApp = () => {
     setTodoText(newTodoText);
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    if (todoText.length === 0) {
+      return;
+    }
+
+    const newTodo = { text: todoText, id: Date.now() };
+
+    let updatedTodoItems = [newTodo, ...items];
+
+    setItems(updatedTodoItems);
+    setTodoText('');
+  }
+
   return (
     <div>
       <h3>REACT TODO APP</h3>
-      <TodoForm todoText={todoText} handleTodoTextChange={handleChange} />
+      <TodoForm
+        todoText={todoText}
+        handleTodoTextChange={handleChange}
+        saveTodo={handleSubmit}
+      />
     </div>
   );
 };

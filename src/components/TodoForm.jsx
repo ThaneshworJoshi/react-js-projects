@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TodoForm = (props) => {
-  // {todoText, handleTodoTextChange}
+  // {todoText, handleTodoTextChange, saveTodo}
   return (
     <form onSubmit={() => {}}>
       <label htmlFor='new-todo'>What needs to be done?</label>
@@ -11,7 +11,7 @@ const TodoForm = (props) => {
         onChange={(event) => props.handleTodoTextChange(event)}
         value={props.todoText}
       />
-      <button>Add Todo</button>
+      <button onClick={props.saveTodo}>Add Todo</button>
     </form>
   );
 };
