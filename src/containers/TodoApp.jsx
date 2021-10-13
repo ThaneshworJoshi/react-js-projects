@@ -34,6 +34,7 @@ const TodoApp = () => {
         handleTodoTextChange={handleChange}
         saveTodo={handleSubmit}
       />
+      <TodoList todos={items} />
     </div>
   );
 };
