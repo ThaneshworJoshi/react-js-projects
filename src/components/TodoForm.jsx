@@ -1,17 +1,29 @@
 import React from 'react';
 
-const TodoForm = (props) => {
-  // {todoText, handleTodoTextChange, saveTodo}
+const TodoForm = ({ addTodo }) => {
+  const [value, setValue] = React.useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!value) return;
+    addTodo(value);
+    setValue('');
+  };
+
   return (
-    <form onSubmit={() => {}}>
-      <label htmlFor='new-todo'>What needs to be done?</label>
+    <form onSubmit={handleSubmit}>
+      <label>
+        <b>Add Todo</b>
+      </label>
       <input
         type='text'
-        id='new-todo'
-        onChange={(event) => props.handleTodoTextChange(event)}
-        value={props.todoText}
+        className='input'
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder='Add new todo'
       />
-      <button onClick={props.saveTodo}>Add Todo</button>
+
+      <button type='submit'>Submit</button>
     </form>
   );
 };

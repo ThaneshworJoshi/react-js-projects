@@ -1,11 +1,18 @@
 import React from 'react';
+import TodoItem from './TodoItem';
 
-const TodoList = (props) => {
+const TodoList = ({ todos, markTodo, removeTodo }) => {
   return (
     <div>
       <ul>
-        {props.todos.map((item) => (
-          <li key={item.id}>{item.text}</li>
+        {todos.map((todo, index) => (
+          <TodoItem
+            key={index}
+            index={index}
+            todo={todo}
+            markTodo={markTodo}
+            removeTodo={removeTodo}
+          />
         ))}
       </ul>
     </div>

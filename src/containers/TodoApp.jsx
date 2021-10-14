@@ -3,38 +3,29 @@ import TodoForm from '../components/TodoForm';
 import TodoList from '../components/TodoList';
 
 const TodoApp = () => {
-  const [items, setItems] = useState([]);
-  const [todoText, setTodoText] = useState('');
+  const [todos, setTodos] = React.useState([]);
 
-  function handleChange(event) {
-    let newTodoText = event.target.value;
-    setTodoText(newTodoText);
-  }
+  const addTodo = (text) => {
+    const newTodos = [...todos, { text, isDone: false }];
+    setTodos(newTodos);
+  };
+  const markTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos[index].isDone = true;
+    setTodos(newTodos);
+  };
 
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    if (todoText.length === 0) {
-      return;
-    }
-
-    const newTodo = { text: todoText, id: Date.now() };
-
-    let updatedTodoItems = [newTodo, ...items];
-
-    setItems(updatedTodoItems);
-    setTodoText('');
-  }
+  const removeTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  };
 
   return (
     <div>
       <h3>REACT TODO APP</h3>
-      <TodoForm
-        todoText={todoText}
-        handleTodoTextChange={handleChange}
-        saveTodo={handleSubmit}
-      />
-      <TodoList todos={items} />
+      <TodoForm addTodo={addTodo} />
+      <TodoList todos={todos} markTodo={markTodo} removeTodo={removeTodo} />
     </div>
   );
 };
