@@ -2,8 +2,15 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background: #2b293d;
   height: 20%;
-  color: #80c9c9;
   font-size: 24px;
+}
+
+.on {
+  background: #08f14e;
+  color: #fff;
+}
+
+.off {
+  background: #2b293d;
 }

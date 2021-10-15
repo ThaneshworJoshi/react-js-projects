@@ -6,6 +6,7 @@ import './calculator.css';
 
 const Calculator = () => {
   const [data, setData] = useState('');
+  const [isOn, setIsOn] = useState(false);
 
   const calculate = () => {
     try {
@@ -16,9 +17,20 @@ const Calculator = () => {
     }
   };
 
+  const onoff = () => {
+    let appState = isOn ? false : true;
+    setIsOn(appState);
+  };
+
   const handleClick = (e) => {
     const value = e.target.getAttribute('data-value');
+    if (isOn === false && value !== 'onoff') {
+      return;
+    }
+
     switch (value) {
+      case 'onoff':
+        onoff();
       case 'clear':
         setData('');
         break;
@@ -32,7 +44,7 @@ const Calculator = () => {
 
   return (
     <div className='calculator'>
-      <Display data={data} />
+      <Display data={data} isOn={isOn} />
       <Keypad>
         <Button onClick={handleClick} label='C' value='clear' />
         <Button onClick={handleClick} label='7' value='7' />
@@ -50,7 +62,11 @@ const Calculator = () => {
         <Button onClick={handleClick} label='9' value='9' />
         <Button onClick={handleClick} label='6' value='6' />
         <Button onClick={handleClick} label='3' value='3' />
-        <Button onClick={handleClick} label='' value='null' />
+        <Button
+          onClick={handleClick}
+          label={isOn ? 'OFF' : 'ON'}
+          value='onoff'
+        />
 
         <Button onClick={handleClick} label='-' value='-' />
         <Button onClick={handleClick} label='+' size='2' value='+' />
