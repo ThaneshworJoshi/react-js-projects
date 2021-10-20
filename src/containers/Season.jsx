@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import SeasonDisplay from '../components/SeasonDisplay';
+import Spinner from '../components/Spinner';
 
 const Season = () => {
   const [lat, setlatitude] = useState(null);
@@ -17,6 +18,8 @@ const Season = () => {
     if (errorMessage && !lat) return <div>Error: {errorMessage}</div>;
 
     if (!errorMessage && lat) return <SeasonDisplay lat={lat} />;
+
+    return <Spinner message='Please accept location requiest' />;
   };
 
   return <div>{renderContent()}</div>;
