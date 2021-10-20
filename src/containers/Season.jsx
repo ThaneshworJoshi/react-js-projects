@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import SeasonDisplay from '../components/SeasonDisplay';
 
 const Season = () => {
   const [lat, setlatitude] = useState(null);
@@ -14,6 +15,8 @@ const Season = () => {
 
   const renderContent = () => {
     if (errorMessage && !lat) return <div>Error: {errorMessage}</div>;
+
+    if (!errorMessage && lat) return <SeasonDisplay lat={lat} />;
   };
 
   return <div>{renderContent()}</div>;
