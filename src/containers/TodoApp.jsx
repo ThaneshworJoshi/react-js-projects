@@ -11,9 +11,7 @@ const TodoApp = () => {
     setTodoText(newTodoText);
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-
+  function handleSubmit() {
     if (todoText.length === 0) {
       return;
     }
