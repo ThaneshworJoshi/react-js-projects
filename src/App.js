@@ -5,7 +5,12 @@ class App extends Component {
 
     this.state = {
       todoList: ['Learn React', 'Learn Python'],
+      todoText: 'Cook Food',
     };
+  }
+
+  handleClick() {
+    console.log('button clicked');
   }
 
   render() {
@@ -13,8 +18,9 @@ class App extends Component {
       <div>
         <h1>Todo List App In React</h1>
         <div>
-          <input type='text' value='Learn React' />
-          <button>Add Todo</button>
+          <input type='text' value={this.state.todoText} />
+
+          <button onClick={this.handleClick}>Add Todo</button>
 
           <div>
             <ul>
