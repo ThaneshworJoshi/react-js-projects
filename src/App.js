@@ -11,12 +11,25 @@ class App extends Component {
   }
 
   handleClick = () => {
-    this.setState({ todoList: [this.state.todoText, ...this.state.todoList] });
+    if (this.state.todoText === '') {
+      return;
+    }
+    this.setState({ todoList: [...this.state.todoList, this.state.todoText] });
     this.setState({ todoText: '' });
   };
 
   handleTextChange = (e) => {
     this.setState({ todoText: e.target.value });
+  };
+
+  deleteHandler = (idx) => {
+    let tempList = this.state.todoList.filter((value, index) => {
+      if (index !== idx) {
+        return true;
+      }
+    });
+
+    this.setState({ todoList: tempList });
   };
 
   render() {
@@ -34,8 +47,19 @@ class App extends Component {
 
           <div>
             <ul>
-              {this.state.todoList.map((todoItem) => {
-                return <li>{todoItem}</li>;
+              {this.state.todoList.map((todoItem, idx) => {
+                return (
+                  <li>
+                    {idx} {todoItem}{' '}
+                    <button
+                      onClick={() => {
+                        this.deleteHandler(idx);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </li>
+                );
               })}
             </ul>
           </div>
