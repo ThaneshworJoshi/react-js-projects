@@ -5,7 +5,10 @@ class App extends Component {
     super();
 
     this.state = {
-      todoList: ['Learn React', 'Learn Python'],
+      todoList: [
+        { id: 1, task: 'Learn React', done: false },
+        { id: 2, task: 'Learn Python', done: false },
+      ],
       todoText: '',
     };
   }
@@ -22,14 +25,31 @@ class App extends Component {
     this.setState({ todoText: e.target.value });
   };
 
-  deleteHandler = (idx) => {
-    let tempList = this.state.todoList.filter((value, index) => {
-      if (index !== idx) {
+  deleteHandler = (id) => {
+    let tempList = this.state.todoList.filter((todo) => {
+      if (todo.id !== id) {
         return true;
       }
+      // if (todo.id === id) {
+      //   return false;
+      // } else {
+      //   return true;
+      // }
     });
 
     this.setState({ todoList: tempList });
+  };
+
+  doneHandler = (idx) => {
+    const tempState = this.state.todoList.map((todo) => {
+      if (todo.id === idx) {
+        return { ...todo, done: true };
+      } else {
+        return todo;
+      }
+    });
+
+    this.setState({ todoList: tempState });
   };
 
   render() {
@@ -47,13 +67,17 @@ class App extends Component {
 
           <div>
             <ul>
-              {this.state.todoList.map((todoItem, idx) => {
+              {this.state.todoList.map((todoItem) => {
                 return (
-                  <li>
-                    {idx} {todoItem}{' '}
+                  <li key={todoItem.id}>
+                    <span>{todoItem.task}</span>
+                    {todoItem.done === true ? '(done)' : ''}
+                    <button onClick={() => this.doneHandler(todoItem.id)}>
+                      Done
+                    </button>
                     <button
                       onClick={() => {
-                        this.deleteHandler(idx);
+                        this.deleteHandler(todoItem.id);
                       }}
                     >
                       Delete
