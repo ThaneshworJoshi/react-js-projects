@@ -14,15 +14,29 @@ class App extends Component {
         { id: 2, task: 'Learn Python', done: false },
       ],
       todoText: '',
+      errorMessage: '',
     };
   }
 
-  handleClick = () => {
+  addTodoHandler = () => {
     if (this.state.todoText === '') {
       return;
     }
-    this.setState({ todoList: [...this.state.todoList, this.state.todoText] });
-    this.setState({ todoText: '' });
+
+    if (parseInt(this.state.todoText)) {
+      this.setState({ ...this.state, errorMessage: 'text cannot be number' });
+      return;
+    }
+
+    const id = this.state.todoList.length + 1;
+
+    this.setState({
+      todoList: [
+        { id: id, task: this.state.todoText, done: false },
+        ...this.state.todoList,
+      ],
+    });
+    this.setState({ todoText: '', errorMessage: '' });
   };
 
   handleTextChange = (e) => {
@@ -64,7 +78,8 @@ class App extends Component {
           <TextField
             todoText={this.state.todoText}
             handleTextChange={this.handleTextChange}
-            handleClick={this.handleClick}
+            addTodoHandler={this.addTodoHandler}
+            errorMessage={this.state.errorMessage}
           />
           <div>
             <TodoList
